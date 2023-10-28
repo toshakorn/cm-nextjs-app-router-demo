@@ -1,22 +1,22 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-type Props = {
-  amount: number;
+type EditPaymentProps = {
+  amount: any;
 };
 
-const EditPayment = (props: Props) => {
+const EditPayment: React.FC<EditPaymentProps> = (props) => {
   const [qrCodeImage, setQRCodeImage] = useState('');
 
   useEffect(() => {
     const { amount } = props;
-    
+
     axios.post('http://localhost:8081/paymentqr', { amount })
       .then(response => {
         // Handle the response from the server
         console.log('Response from server:', response.data.result);
-        
+
         // Set the base64 data as the image source
         setQRCodeImage(response.data.result);
       })
