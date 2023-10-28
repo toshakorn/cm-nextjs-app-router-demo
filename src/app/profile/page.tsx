@@ -20,6 +20,7 @@ const Profile = (props: Props) => {
   const logout = () => {
     window.location.href = "/";
     localStorage.removeItem("user");
+    localStorage.clear();
   };
 
   const productList = () => {
@@ -36,6 +37,10 @@ const Profile = (props: Props) => {
 
   const PaymentEdit = () =>{
     window.location.href = "/PaymentEdit"
+  }
+
+  const sellProduct = () =>{
+    window.location.href = "/sellProduct"
   }
 
   return (
@@ -82,7 +87,7 @@ const Profile = (props: Props) => {
             <p className="text-[25px]">รายการสินค้า</p>
             <hr />
           </div>
-          <div className="w-[300px] mt-7">
+          <div onClick={sellProduct} className="w-[300px] mt-7">
             <p className="text-[25px]">ขายรายการสินค้า</p>
             <hr />
           </div>

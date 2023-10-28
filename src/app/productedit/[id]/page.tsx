@@ -10,13 +10,14 @@ type Props = {
 const ProductEdit = ({ params }: Props) => {
   const { id } = params;
   const [data, setData] = useState({
-    data: { image: "", name: "", value: "", dateEnd: "" },
+    data: { image: "", name: "", value: "", dateEnd: "",price:"" },
   });
   const [formData, setFormData] = useState({
     image: data.data.image,
     name: data.data.name,
     value: data.data.value,
     dateEnd: data.data.dateEnd,
+    price: data.data.price,
   });
 
   const handleChange = (e: any) => {
@@ -63,6 +64,7 @@ const ProductEdit = ({ params }: Props) => {
             name: result.data.name,
             value: result.data.value,
             dateEnd: result.data.dateEnd,
+            price: result.data.price
           });
         } else {
           console.error("ไม่สามารถดึงข้อมูลได้");
@@ -128,6 +130,17 @@ const ProductEdit = ({ params }: Props) => {
             onChange={handleChange}
             className="p-2 border rounded-md ml-2 w-[150px]"
             placeholder="จำนวน"
+          />
+        </div>
+        <div className="flex mt-4">
+          <p>ราคา: </p>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="p-2 border rounded-md ml-2 w-[150px]"
+            placeholder="ราคา"
           />
         </div>
         <div className="flex mt-4">

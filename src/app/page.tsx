@@ -15,7 +15,6 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      alert(response.ok);
       if (response.ok) {
         // Login successful
         const data = await response.json();
