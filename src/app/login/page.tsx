@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,24 +13,24 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (response.ok) {
-        // Login successful
+        // ล็อกอินสำเร็จ
         const data = await response.json();
         console.log("Login successful:", data);
-        localStorage.setItem("user",JSON.stringify(data))
-        // Redirect on the client side
-        alert("HI")
-        window.location.href = "/profile"; // Use window.location.href for client-side redirects
+        // ทำสิ่งที่คุณต้องการหลังจากล็อกอินสำเร็จ
       } else {
-        // Login failed
+        // ล็อกอินล้มเหลว
         const errorData = await response.json();
         console.error("Login failed:", errorData);
+        // ทำสิ่งที่คุณต้องการหลังจากล็อกอินล้มเหลว
       }
     } catch (error) {
       console.error("An error occurred while processing the request:", error);
+      // ทำสิ่งที่คุณต้องการหลังจากเกิดข้อผิดพลาดในการล็อกอิน
     }
   };
+  
 
   return (
     <div>
