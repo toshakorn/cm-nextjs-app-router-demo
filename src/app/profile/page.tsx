@@ -24,6 +24,18 @@ const Profile = (props: Props) => {
 
   const productList = () => {
     window.location.href = "/productlist";
+  };
+
+  const ProfileEdit = () => {
+    window.location.href = "/profileEdit";
+  };
+
+  const productdateend = () => {
+    window.location.href = "/productdateend";
+  };
+
+  const PaymentEdit = () =>{
+    window.location.href = "/PaymentEdit"
   }
 
   return (
@@ -45,7 +57,7 @@ const Profile = (props: Props) => {
         <div className="flex flex-col items-center">
           {user && user.data && (
             <div>
-              <b className="text-[29px]">{user.data.user}</b>
+              <b className="text-[29px]">{user.data.email}</b>
               <p>
                 {user.data.name} {user.data.lastname}
               </p>
@@ -54,30 +66,28 @@ const Profile = (props: Props) => {
         </div>
 
         <div className="mt-12">
-          <div className="w-[300px] mt-7">
+          <div onClick={ProfileEdit} className="w-[300px] mt-7">
             <p className="text-[25px]">ตั้งค่าโปรไฟล์</p>
             <hr />
           </div>
-          <div className="w-[300px] mt-7">
+          <div onClick={productdateend} className="w-[300px] mt-7">
             <p className="text-[25px]">รายการสินค้าไกล้หมดอายุ</p>
             <hr />
           </div>
-          <div className="w-[300px] mt-7">
+          <div onClick={PaymentEdit} className="w-[300px] mt-7">
             <p className="text-[25px]">ตั้งค่าสลีปจ่ายเงิน - ธนาคาร</p>
             <hr />
           </div>
-          <div className="w-[300px] mt-7">
-            <p onClick={productList} className="text-[25px]">รายการสินค้า</p>
+          <div onClick={productList} className="w-[300px] mt-7">
+            <p className="text-[25px]">รายการสินค้า</p>
             <hr />
           </div>
           <div className="w-[300px] mt-7">
             <p className="text-[25px]">ขายรายการสินค้า</p>
             <hr />
           </div>
-          <div className="w-[300px] mt-7">
-            <p onClick={logout} className="text-[25px] text-red-600">
-              ออกจากระบบ
-            </p>
+          <div onClick={logout} className="w-[300px] mt-7">
+            <p className="text-[25px] text-red-600">ออกจากระบบ</p>
             <hr />
           </div>
         </div>

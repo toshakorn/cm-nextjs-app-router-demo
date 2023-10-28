@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(""); // State เพื่อแสดงข้อความ
 
   const handleLogin = async () => {
     try {
@@ -14,14 +15,13 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+      alert(response.ok);
       if (response.ok) {
         // Login successful
         const data = await response.json();
         console.log("Login successful:", data);
         localStorage.setItem("user",JSON.stringify(data))
         // Redirect on the client side
-        alert("HI")
         window.location.href = "/profile"; // Use window.location.href for client-side redirects
       } else {
         // Login failed
