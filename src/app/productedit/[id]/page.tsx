@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 type Props = {
   params: any;
@@ -10,7 +11,7 @@ type Props = {
 const ProductEdit = ({ params }: Props) => {
   const { id } = params;
   const [data, setData] = useState({
-    data: { image: "", name: "", value: "", dateEnd: "",price:"" },
+    data: { image: "", name: "", value: "", dateEnd: "", price: "" },
   });
   const [formData, setFormData] = useState({
     image: data.data.image,
@@ -42,6 +43,14 @@ const ProductEdit = ({ params }: Props) => {
       console.log("formData", formData);
       if (response.ok) {
         // อัปเดตข้อมูลสำเร็จ
+        Swal.fire({
+          title: "บันทึกสำเร็จ",
+          text: "ข้อมูลได้รับการบันทึกเรียบร้อยแล้ว",
+          icon: "success",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       } else {
         console.error("ไม่สามารถอัปเดตข้อมูลได้");
       }
@@ -64,7 +73,7 @@ const ProductEdit = ({ params }: Props) => {
             name: result.data.name,
             value: result.data.value,
             dateEnd: result.data.dateEnd,
-            price: result.data.price
+            price: result.data.price,
           });
         } else {
           console.error("ไม่สามารถดึงข้อมูลได้");
@@ -76,10 +85,23 @@ const ProductEdit = ({ params }: Props) => {
 
     fetchData();
   }, [id]);
+  const [user, setUser] = useState<any>(null);
 
-  const productlist = () =>{
+  const profilePage = () => {
+    window.location.href = "/profile";
+  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+      }
+    }
+  }, []);
+  const productlist = () => {
     window.location.href = "/productlist";
-  }
+  };
 
   return (
     <div>
@@ -99,7 +121,14 @@ const ProductEdit = ({ params }: Props) => {
             </div>
           </div>
           <div className="bg-[#6FC253] mt-11 w-[55px] h-[55px] rounded-[100%] ml-9 flex items-center justify-center">
-            <Image src="/bell.svg" alt="กริ่งเตือน" width={25} height={5} />
+            {user && user.data && (
+              <img
+                onClick={profilePage}
+                className="w-full h-full object-cover rounded-full"
+                src={user.data.image}
+                alt=""
+              />
+            )}
           </div>
         </div>
       </div>

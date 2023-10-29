@@ -190,7 +190,7 @@ const SellProduct = (props: Props) => {
               height={4}
             />
           </div>
-          <div className="ml-5">
+          <div className="mr-[25px]">
             <b className="text-2xl font-bold">รายการขาย</b>
           </div>
         </div>
