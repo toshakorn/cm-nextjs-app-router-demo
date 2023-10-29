@@ -8,9 +8,20 @@ type Props = {
 
 const ProductDateEnd = (props: Props) => {
   const [data, setData] = useState(props.data || []);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+      }
+    }
   }, []);
 
   const fetchData = async () => {
@@ -58,11 +69,18 @@ const ProductDateEnd = (props: Props) => {
               />
             </div>
             <div className="ml-5">
-              <b className="text-[25px]">จัดการสินค้า</b>
+              <b className="text-[25px]">สินค้าไกล้หมดอายุ</b>
             </div>
           </div>
           <div className="bg-[#6FC253] mt-11 w-[55px] h-[55px] rounded-[100%] ml-9 flex items-center justify-center">
-            <Image src="/bell.svg" alt="กริ่งเตือน" width={25} height={5} />
+            {user && user.data && (
+              <img
+                onClick={profilePage}
+                className="w-full h-full object-cover rounded-full"
+                src={user.data.image}
+                alt=""
+              />
+            )}
           </div>
         </div>
       </div>

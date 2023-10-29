@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import EditPayment from "../editpayment/page";
+import Swal from "sweetalert2";
 
 type Props = {};
 
@@ -13,6 +14,18 @@ const PaymentEdit = (props: Props) => {
     name: "",
     lastname: "",
   });
+
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +73,14 @@ const PaymentEdit = (props: Props) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("ข้อมูลที่แก้ไข:", data); // แสดงข้อมูลที่ได้จากเซิร์ฟเวอร์
+        Swal.fire({
+          title: "บันทึกสำเร็จ",
+          text: "ข้อมูลได้รับการบันทึกเรียบร้อยแล้ว",
+          icon: "success",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาดในการบันทึกข้อมูล:", error);
@@ -83,11 +104,18 @@ const PaymentEdit = (props: Props) => {
                 />
               </div>
               <div className="ml-5">
-                <b className="text-[25px]">ชำระเงิน</b>
+                <b className="text-[25px]">ตั้งค่าการชำระเงิน</b>
               </div>
             </div>
             <div className="bg-[#6FC253] mt-11 w-[55px] h-[55px] rounded-[100%] ml-9 flex items-center justify-center">
-              <Image src="/bell.svg" alt="กริ่งเตือน" width={25} height={5} />
+              {user && user.data && (
+                <img
+                  onClick={profilePage}
+                  className="w-full h-full object-cover rounded-full"
+                  src={user.data.image}
+                  alt=""
+                />
+              )}
             </div>
           </div>
         </div>
