@@ -64,7 +64,7 @@ const PostProduct = () => {
         console.log("บันทึกข้อมูล:", product);
 
         // ส่งข้อมูลไปยัง API
-        fetch("http://localhost:8081/product", {
+        fetch(process.env.NEXT_PUBLIC_API+"/product", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

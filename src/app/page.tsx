@@ -8,7 +8,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:8081/owner/login", {
+      const response = await fetch("https://0868-2001-fb1-11d-16c8-2c02-ccbd-f325-542.ngrok-free.app/owner/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

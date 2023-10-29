@@ -47,7 +47,7 @@ const ProductEdit = ({ params }: Props) => {
 
   const deleteProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/product/${id}`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_API+`/product/${id}`, {
         method: "DELETE",
       });
 
@@ -72,7 +72,7 @@ const ProductEdit = ({ params }: Props) => {
     console.log(formData);
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8081/product/${id}`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_API+`/product/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const ProductEdit = ({ params }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8081/product/" + id);
+        const response = await fetch(process.env.NEXT_PUBLIC_API+"/product/" + id);
         if (response.ok) {
           const result = await response.json();
           setData(

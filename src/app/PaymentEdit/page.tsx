@@ -30,7 +30,7 @@ const PaymentEdit = (props: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8081/payment");
+        const response = await fetch(process.env.NEXT_PUBLIC_API+"/payment");
         if (response.ok) {
           const result = await response.json();
           setData(result || []);
@@ -63,7 +63,7 @@ const PaymentEdit = (props: Props) => {
 
   const handleSave = () => {
     // ส่งข้อมูลแก้ไขไปยังเซิร์ฟเวอร์
-    fetch("http://localhost:8081/payment/653d41ca0a29604ca07efa7a", {
+    fetch(process.env.NEXT_PUBLIC_API+"/payment/653d41ca0a29604ca07efa7a", {
       method: "PUT", // ใช้เมธอด PUT สำหรับการอัปเดตข้อมูล
       headers: {
         "Content-Type": "application/json", // ระบุประเภทข้อมูลเป็น JSON

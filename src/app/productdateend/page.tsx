@@ -26,7 +26,7 @@ const ProductDateEnd = (props: Props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8081/product");
+      const response = await fetch(process.env.NEXT_PUBLIC_API+"/product");
       if (response.ok) {
         const result = await response.json();
         const products = result || [];

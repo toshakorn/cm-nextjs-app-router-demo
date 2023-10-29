@@ -117,7 +117,7 @@ const SellProduct = (props: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8081/product");
+        const response = await fetch(process.env.NEXT_PUBLIC_API + "/product");
         if (response.ok) {
           const result = await response.json();
           setData(result || []);
@@ -140,33 +140,37 @@ const SellProduct = (props: Props) => {
   };
 
   const handleConfirm = () => {
-
-    {data.map((item:any,index:number) =>{
-        Submit(item)
-    })}
-    console.log("รายการในรถเข็น:", cart,"ราคารวม",totalPrice);
-    localStorage.setItem("cart",JSON.stringify(cart))
-    localStorage.setItem("totalPrice",JSON.stringify(totalPrice))
+    {
+      data.map((item: any, index: number) => {
+        Submit(item);
+      });
+    }
+    console.log("รายการในรถเข็น:", cart, "ราคารวม", totalPrice);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
     window.location.href = "/Payment";
   };
 
-  const Submit = async (data:any) => {
-    console.log("data._id",data._id);
+  const Submit = async (data: any) => {
+    console.log("data._id", data._id);
     const obj = {
-        image:data.image,
-        name:data.name,
-        dateEnd:data.dateEnd,
-        value:data.value,
-        price:data.price
-    }
+      image: data.image,
+      name: data.name,
+      dateEnd: data.dateEnd,
+      value: data.value,
+      price: data.price,
+    };
     try {
-      const response = await fetch(`http://localhost:8081/product/${data._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_API + `/product/${data._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        }
+      );
       console.log("formData", data);
       if (response.ok) {
         // อัปเดตข้อมูลสำเร็จ
@@ -195,14 +199,14 @@ const SellProduct = (props: Props) => {
           </div>
         </div>
         <div className="bg-[#6FC253] mt-11 w-[55px] h-[55px] rounded-[100%] ml-9 flex items-center justify-center">
-        {user && user.data && (
-                <img
-                  onClick={profilePage}
-                  className="w-full h-full object-cover rounded-full"
-                  src={user.data.image}
-                  alt=""
-                />
-              )}
+          {user && user.data && (
+            <img
+              onClick={profilePage}
+              className="w-full h-full object-cover rounded-full"
+              src={user.data.image}
+              alt=""
+            />
+          )}
         </div>
       </div>
 
@@ -253,9 +257,12 @@ const SellProduct = (props: Props) => {
         </ul>
         <p className="mt-2">ราคารวม: {totalPrice} บาท</p>
       </div>
-      <button onClick={handleConfirm} className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
-          ยืนยัน
-        </button>
+      <button
+        onClick={handleConfirm}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+      >
+        ยืนยัน
+      </button>
     </div>
   );
 };

@@ -6,7 +6,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:8081/owner/login", {
+      const response = await fetch(process.env.NEXT_PUBLIC_API+"/owner/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

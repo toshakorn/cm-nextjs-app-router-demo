@@ -35,7 +35,7 @@ const ProfileEdit = (props: Props) => {
   const handleSave = () => {
     // console.log(user.data._id);
     // Assuming you have an API endpoint for updating the user data
-    fetch("http://localhost:8081/owner/" + user.data._id, {
+    fetch(process.env.NEXT_PUBLIC_API+"/owner/" + user.data._id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

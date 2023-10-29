@@ -12,7 +12,7 @@ const EditPayment: React.FC<EditPaymentProps> = (props) => {
   useEffect(() => {
     const { amount } = props;
 
-    axios.post('http://localhost:8081/paymentqr', { amount })
+    axios.post(process.env.NEXT_PUBLIC_API+'/paymentqr', { amount })
       .then(response => {
         // Handle the response from the server
         console.log('Response from server:', response.data.result);
