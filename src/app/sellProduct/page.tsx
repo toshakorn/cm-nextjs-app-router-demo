@@ -190,8 +190,8 @@ const SellProduct = (props: Props) => {
               height={4}
             />
           </div>
-          <div className="mr-[25px]">
-            <b className="text-2xl font-bold">รายการขาย</b>
+          <div className="">
+            <b className="text-2xl mr-[40px]">รายการขาย</b>
           </div>
         </div>
         <div className="bg-[#6FC253] mt-11 w-[55px] h-[55px] rounded-[100%] ml-9 flex items-center justify-center">

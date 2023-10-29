@@ -29,6 +29,45 @@ const ProductEdit = ({ params }: Props) => {
     });
   };
 
+  const handleDelete = () => {
+    Swal.fire({
+      title: "ยืนยันการลบ",
+      text: "คุณแน่ใจหรือไม่ที่ต้องการลบสินค้านี้?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ใช่, ลบ",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ถ้าผู้ใช้คลิก "ใช่, ลบ" ให้ทำการลบ
+        deleteProduct();
+      }
+    });
+  };
+
+  const deleteProduct = async () => {
+    try {
+      const response = await fetch(`http://localhost:8081/product/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          title: "ลบสำเร็จ",
+          text: "สินค้าถูกลบเรียบร้อยแล้ว",
+          icon: "success",
+        });
+        setTimeout(() => {
+          window.location.href = "/productlist";
+        }, 1500);
+      } else {
+        console.error("ไม่สามารถลบสินค้าได้");
+      }
+    } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการลบสินค้า", error);
+    }
+  };
+
   const handleSubmit = async (e: any) => {
     console.log(formData);
     e.preventDefault();
@@ -182,12 +221,21 @@ const ProductEdit = ({ params }: Props) => {
             className="p-2 border rounded-md ml-2"
           />
         </div>
-        <button
-          type="submit"
-          className="mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
-        >
-          บันทึก
-        </button>
+        <div className="flex justify-around">
+          <button
+            type="submit"
+            className="mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
+          >
+            บันทึก
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-md"
+          >
+            ลบ
+          </button>
+        </div>
       </form>
     </div>
   );
